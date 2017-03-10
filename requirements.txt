@@ -1,0 +1,14 @@
+Flask==0.12
+Jinja2==2.9.5
+MarkupSafe==1.0
+Werkzeug==0.12
+argparse==1.2.1
+beautifulsoup4==4.5.3
+click==6.7
+finsymbols==1.2.0
+googlefinance==0.7
+itsdangerous==0.24
+pytz==2016.10
+simplejson==3.10.0
+wsgiref==0.1.2
+yahoo-finance==1.4.0
