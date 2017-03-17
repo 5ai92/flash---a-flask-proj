@@ -12,16 +12,16 @@ class Stock:
         self.symbol = symbol
     
     def display_count(self):
-        return "Total count of stocks %s" %(Stock.stockcount)
+        return (Stock.stockcount,)
     
     def display_stock(self):
-        return "Company symbol : %s" %(self.symbol)
+        return (self.symbol,)
     
     def current(self):       
         open_price = float(Share(self.symbol).get_open())
         curr_price = float(getQuotes(self.symbol)[0]['LastTradeWithCurrency'])
         change_price = round((curr_price-open_price),2)
-        change_percent =round(((change_price/open_price) * 100), 2)        
+        change_percent =round(((change_price/open_price) * 100), 2)    
         return (open_price, curr_price, change_price, change_percent)
         
     
@@ -35,21 +35,22 @@ class Stock:
         dividend = Share(self.symbol).get_dividend_share()
         dividend_paydate = Share(self.symbol).get_dividend_pay_date()
         dividend_yield = Share(self.symbol).get_dividend_yield()
+#         EPS_estimates  = round(Share(self.symbol).get_EPS_estimate_current_year(),2)
+#         current_price = float(getQuotes(self.symbol)[0]['LastTradeWithCurrency'])
+#         pe = round((current_price / EPS_estimates),2)
+        EPS_estimates = float(Share(self.symbol).get_EPS_estimate_current_year())
         
-        return (marketcap, bookvalue, dividend, dividend_paydate, dividend_yield)
+        return (marketcap, bookvalue, dividend, dividend_paydate, dividend_yield, EPS_estimates)
 
+    
       
 def stock_bird(stock):
+  
+  vals = stock.display_stock() + stock.current() + stock.fundementals()
+  
+  return vals
+  
    
-#    print start_time = timeit.default_timer()
-    
-#     key_name = ('symbol', 'open_price', 'curr_price', 'change_price', 'change_perccent', 'marketcap', 'bookvalue', 'dividend', 'dividend_paydate', 'dividend_yield')
-#     vals = (stock.display_stock(), stock.current(), stock.fundementals())
-
-#    printtimeit.default_timer() - start_time)
-
-    return (stock.display_stock(), stock.current(), stock.fundementals())
-    
 
 if __name__ == '__main__':
     stock_bird()
